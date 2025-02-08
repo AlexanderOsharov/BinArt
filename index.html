@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="icon" href="img/icon.png" type="image/x-icon">
+    <title>ASCII Искусство</title>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <section class="control-group global-settings">
+      <h3>Глобальные настройки</h3>
+      <div class="control">
+        <label for="theme">Тема:</label>
+        <select id="theme">
+          <option value="dark" selected>Тёмная</option>
+          <option value="light">Светлая</option>
+        </select>
+      </div>
+      <div class="control">
+        <label for="ignoreWhite">Игнорировать чистый белый:</label>
+        <input type="checkbox" id="ignoreWhite" checked>
+      </div>
+    </section>
+    
+    <section class="control-group upload-group">
+      <h3>1. Загрузите изображение</h3>
+      <div class="control">
+        <input type="file" id="upload" accept="image/*">
+      </div>
+    </section>
+    
+    <section class="control-group image-processing">
+      <h3>2. Основные настройки</h3>
+      <div class="control">
+        <label for="asciiWidth">Ширина вывода (символов):</label>
+        <input type="range" id="asciiWidth" min="20" max="300" value="150">
+        <span class="value-label" id="asciiWidthVal">100</span>
+      </div>
+      <div class="control">
+        <label for="brightness">Яркость:</label>
+        <input type="range" id="brightness" min="-100" max="100" value="0">
+        <span class="value-label" id="brightnessVal">0</span>
+      </div>
+      <div class="control">
+        <label for="contrast">Контрастность:</label>
+        <input type="range" id="contrast" min="-100" max="100" value="0">
+        <span class="value-label" id="contrastVal">0</span>
+      </div>
+      <div class="control">
+        <label for="blur">Размытие (px):</label>
+        <input type="range" id="blur" min="0" max="10" step="0.01" value="0">
+        <span class="value-label" id="blurVal">0</span>
+      </div>
+      <div class="control">
+        <label for="invert">Инвертировать цвета:</label>
+        <input type="checkbox" id="invert">
+      </div>
+    </section>
+    
+    <section class="control-group dithering-settings">
+      <h3>3. Настройки dithering</h3>
+      <div class="control">
+        <label for="dithering">Включить dithering:</label>
+        <input type="checkbox" id="dithering" checked>
+      </div>
+      <div class="control">
+        <label for="ditherAlgorithm">Алгоритм dithering:</label>
+        <select id="ditherAlgorithm">
+          <option value="floyd" selected>Floyd–Steinberg</option>
+          <option value="atkinson">Atkinson</option>
+          <option value="noise">Шум</option>
+          <option value="ordered">Упорядоченный</option>
+        </select>
+      </div>
+    </section>
+    
+    <section class="control-group charset-settings">
+      <h3>4. Набор символов</h3>
+      <div class="control">
+        <label for="charset">Выберите набор:</label>
+        <select id="charset">
+          <option value="detailed" selected>Детализированный</option>
+          <option value="standard">Стандартный</option>
+          <option value="blocks">Блоки</option>
+          <option value="binary">Бинарный</option>
+          <option value="hex">Hex</option>
+          <option value="manual">Ручной</option>
+        </select>
+      </div>
+      <div class="control" id="manualCharControl" style="display: none;">
+        <label for="manualCharInput">Ручной символ:</label>
+        <input type="text" id="manualCharInput" maxlength="1" value="0">
+      </div>
+    </section>
+    
+    <section class="control-group edge-detection-settings">
+      <h3>5. Обнаружение границ</h3>
+      <p>Выберите метод обнаружения границ:</p>
+      <div class="control">
+        <input type="radio" name="edgeMethod" id="edgeNone" value="none" checked>
+        <label for="edgeNone">Без обнаружения границ</label>
+      </div>
+      <div class="control">
+        <input type="radio" name="edgeMethod" id="edgeSobel" value="sobel">
+        <label for="edgeSobel">Обнаружение границ Sobel</label>
+      </div>
+      <div class="control">
+        <input type="radio" name="edgeMethod" id="edgeDoG" value="dog">
+        <label for="edgeDoG">Обнаружение контуров DoG</label>
+      </div>
+      <div class="control" id="sobelThresholdControl" style="display: none;">
+        <label for="edgeThreshold">Порог Sobel:</label>
+        <input type="range" id="edgeThreshold" min="0" max="255" value="100">
+        <span class="value-label" id="edgeThresholdVal">100</span>
+      </div>
+      <div class="control" id="dogThresholdControl" style="display: none;">
+        <label for="dogEdgeThreshold">Порог DoG:</label>
+        <input type="range" id="dogEdgeThreshold" min="0" max="255" value="100">
+        <span class="value-label" id="dogEdgeThresholdVal">100</span>
+      </div>
+    </section>
+    
+    <section class="control-group display-settings">
+      <h3>6. Настройки отображения</h3>
+      <div class="control">
+        <label for="zoom">Масштаб (%):</label>
+        <input type="range" id="zoom" min="20" max="600" value="100">
+        <span class="value-label" id="zoomVal">100</span>
+      </div>
+    </section>
+    
+    <section class="control-group misc-settings">
+      <div class="control">
+        <button id="reset">Сбросить все настройки</button>
+      </div>
+    </section>
+  </aside>
+  
+  <main class="main-content">
+    <pre id="ascii-art"></pre>
+    <button id="copyBtn">Скопировать ASCII искусство</button>
+    <button id="downloadBtn">Скачать PNG</button>
+  </main>
+</div>
+<canvas id="canvas" style="display: none;"></canvas>
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+/* Общие настройки */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-color: #18191a; /* Темно-серый фон для тёмной темы */
+  color: #e0e0e0; /* Светло-серый текст */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* Боковая панель */
+.sidebar {
+  width: 380px;
+  flex-shrink: 0;
+  background: #242526; /* Темно-серый фон боковой панели */
+  color: #e0e0e0; /* Светло-серый текст */
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar h3 {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff; /* Белый заголовок */
+}
+
+.control-group {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #444444; /* Серая линия разделения */
+  padding-bottom: 10px;
+}
+
+.control-group:last-of-type {
+  border-bottom: none;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.control label {
+  flex: 0 0 150px;
+  margin-right: 10px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  color: #d0d0d0; /* Более светлый текст меток */
+}
+
+.control input[type="range"],
+.control select,
+.control input[type="text"] {
+  flex: 1;
+  padding: 5px;
+  border-radius: 4px;
+  border: none;
+  background-color: #3a3b3c; /* Темно-серый фон элементов управления */
+  color: #e0e0e0; /* Светло-серый текст */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.value-label {
+  display: inline-block;
+  width: 40px;
+  text-align: center;
+  margin-left: 8px;
+  font-size: 0.9rem;
+  color: #d0d0d0; /* Более светлый текст значений */
+}
+
+/* Основное содержимое */
+.main-content {
+  flex: 1;
+  margin-left: 380px;
+  padding: 20px;
+  overflow-y: auto;
+  background: #18191a; /* Темно-серый фон основного содержимого */
+  color: #e0e0e0; /* Светло-серый текст */
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#ascii-art {
+  background: #18191a; /* Темно-серый фон ASCII искусства */
+  padding: 10px;
+  white-space: pre;
+  font-family: Consolas, Monaco, "Liberation Mono", monospace;
+  font-size: 7px;
+  line-height: 7px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button {
+  margin-right: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #6a737d; /* Серый цвет кнопок */
+  color: #ffffff; /* Белый текст */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  background-color: #57606a; /* Более яркий серый при наведении */
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Эффект "искр" для слайдеров */
+input[type="range"] {
+  position: relative;
+}
+
+input[type="range"]::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: var(--sparkle-position, 0); /* Динамическая позиция искр */
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  animation: sparkle 0.5s ease-in-out infinite;
+  opacity: 0;
+  pointer-events: none;
+  transition: left 0.1s ease, opacity 0.2s ease;
+  display: none; /* Отключаем кругляшки */
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+input[type="range"]:hover::after {
+  opacity: 1; /* Показывать искры при наведении */
+}
+
+/* Стили для искорок */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  animation: sparkle 0.5s ease-in-out infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Лёгкая тема */
+body.light-mode {
+  background: #ffffff; /* Белый фон */
+  color: #000000; /* Чёрный текст по умолчанию */
+}
+
+body.light-mode .sidebar {
+  background: #f9f9f9; /* Светло-белый фон боковой панели */
+  color: #000000; /* Чёрный текст */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .main-content {
+  background: #ffffff; /* Белый фон основного содержимого */
+  color: #000000; /* Чёрный текст */
+}
+
+body.light-mode #ascii-art {
+  background: #ffffff; /* Белый фон ASCII искусства */
+  color: #000000; /* Чёрный текст */
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+}
+
+/* Кнопки */
+body.light-mode button {
+  background-color: #7289da; /* Голубой цвет кнопок */
+  color: #ffffff; /* Белый текст */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode button:hover {
+  background-color: #5c6bde; /* Более насыщенный голубой при наведении */
+}
+
+/* Элементы управления */
+body.light-mode select,
+body.light-mode input[type="text"] {
+  background-color: #f5f5f5; /* Очень светлый серый */
+  color: #000000; /* Чёрный текст */
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+}
+
+body.light-mode select:hover,
+body.light-mode input[type="text"]:hover {
+  border-color: #a5b4fc; /* Голубая граница при наведении */
+}
+
+/* Заголовки в боковой панели */
+body.light-mode .sidebar h3 {
+  color: #000000; /* Чёрный текст заголовков */
+}
+
+/* Метки элементов управления */
+body.light-mode .control label {
+  color: #000000; /* Чёрный текст меток */
+}
+
+/* Значения элементов управления */
+body.light-mode .value-label {
+  color: #000000; /* Чёрный текст значений */
+}
+
+/* Чекбоксы и радио-кнопки */
+body.light-mode input[type="checkbox"],
+body.light-mode input[type="radio"] {
+  accent-color: #5c6bde; /* Голубой акцент */
+}
+
+body.light-mode input[type="checkbox"]:hover,
+body.light-mode input[type="radio"]:hover {
+  accent-color: #4c5bcf; /* Более яркий голубой при наведении */
+}
+
+/* Кнопка "Сброс" */
+body.light-mode button#reset {
+  background-color: #ff7171; /* Ярко-розовый цвет */
+  color: #ffffff; /* Белый текст */
+}
+
+body.light-mode button#reset:hover {
+  background-color: #ff4d4d; /* Более интенсивный розовый */
+}
+
+/* Эффект "искр" для слайдеров в светлой теме */
+body.light-mode input[type="range"]::after {
+  background: rgba(114, 137, 218, 0.7); /* Голубые искры */
+}
+
+
+/* Выпадающие списки и текстовые поля */
+select,
+input[type="text"] {
+  padding: 5px;
+  border-radius: 4px;
+  border: none;
+  background-color: #3a3b3c; /* Темно-серый фон */
+  color: #e0e0e0; /* Светло-серый текст */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+select:hover,
+input[type="text"]:hover {
+  background-color: #444444; /* Более яркий темно-серый при наведении */
+}
+
+/* Чекбоксы и радио-кнопки */
+input[type="checkbox"],
+input[type="radio"] {
+  margin-right: 8px;
+  accent-color: #5865f2; /* Синий цвет акцента */
+  transition: accent-color 0.3s ease;
+}
+
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+  accent-color: #7289da; /* Более светлый синий при наведении */
+}
+
+/* Кнопка "Сброс" */
+button#reset {
+  background-color: #e06c75; /* Красновато-розовый цвет */
+}
+
+button#reset:hover {
+  background-color: #be5046; /* Более тёмный красновато-розовый */
+}
+
+/* Искорки для слайдеров */
+input[type="range"] .spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: sparkle 0.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Стили для искорок */
+.sparks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 215, 0, 0.7); /* Золотистый цвет */
+  border-radius: 50%;
+  animation: sparkle 0.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Анимация для всех элементов */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+/* Подсветка секций при наведении */
+.control-group:hover {
+  background-color: rgba(255, 255, 255, 0.05); /* Полупрозрачный светлый фон */
+}
+
+.control-group:hover h3 {
+  color: #5865f2; /* Синий заголовок */
+}
+
+.control:hover label {
+  color: #ffffff; /* Белый текст меток */
+}
+
+.control:hover input[type="range"] {
+  background: linear-gradient(to right, #818cf8, #a5b4fc); /* Градиент синих оттенков */
+}
+
+.control:hover select,
+.control:hover input[type="text"] {
+  background-color: #444444; /* Более яркий темно-серый */
+}
+
+/* Лёгкая тема: подсветка элементов */
+body.light-mode .control-group:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* Полупрозрачный тёмный фон */
+}
+
+body.light-mode .control-group:hover h3 {
+  color: #6366f1; /* Синий заголовок */
+}
+
+body.light-mode .control:hover label {
+  color: #333333; /* Темно-серый текст меток */
+}
+
+body.light-mode .control:hover input[type="range"] {
+  background: linear-gradient(to right, #a5b4fc, #818cf8); /* Градиент синих оттенков */
+}
+
+body.light-mode .control:hover select,
+body.light-mode .control:hover input[type="text"] {
+  background-color: #eaeaea; /* Светло-серый фон */
+}
+
+/* Загрузка изображения */
+input[type="file"] {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4b5563; /* Темно-серый цвет */
+  color: #e0e0e0; /* Светло-серый текст */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="file"]:hover {
+  background-color: #525966; /* Более яркий темно-серый */
+}
+
+.control label {
+    flex: 0 0 150px;
+    margin-right: 10px;
+    font-size: 0.9rem;
+    white-space: nowrap; /* Отключаем перенос */
+    overflow: hidden; /* Обрезаем длинный текст */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+}
+input[type="range"] {
+    width: 100%; /* Полная ширина контейнера */
+    /*appearance: none;*/ /* Отключаем стандартный стиль */
+    /*background: linear-gradient(to right, #a5b4fc, #818cf8); */ /* Градиент для красоты */
+    height: 6px; /* Высота полосы */
+    border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    /*appearance: none;*/ /* Отключаем стандартный стиль */
+    width: 16px; /* Ширина джойстика */
+    height: 16px; /* Высота джойстика */
+    /*background: #5865f2;*/ /* Цвет джойстика */
+    /*border-radius: 50%;*/ /* Круглый джойстик */
+    cursor: pointer;
+    /*margin-top: -5px;*/ /* Центрируем джойстик */
+}
+
+.sidebar {
+    width: 380px;
+    flex-shrink: 0;
+    background: #242526;
+    color: #e0e0e0;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Добавляем скроллинг */
+    max-height: 100vh; /* Фиксируем высоту */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.control {
+    position: relative; /* Необходимо для правильного позиционирования молний */
+}
+input[type="range"]::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+    background: #5865f2;
+    border-radius: 50%;
+    cursor: pointer;
+}
